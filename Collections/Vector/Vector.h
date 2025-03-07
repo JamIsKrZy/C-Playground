@@ -21,7 +21,6 @@ void* vector_get_index(self, size_t index);
 
 void vector_free(self);
 
-
 #undef self
 
 #define self VecIterator*iter
