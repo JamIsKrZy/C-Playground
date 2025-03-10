@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
  
     ProcessResult res = process_executable(&vec);
     
-   printf("\n\n"); 
+    printf("\n\n"); 
     
     display_result_table(&res);
 

@@ -1,2 +1,5 @@
 /fildir.c
+/.target
 
+TestRunner/bin
+bin/test_runner

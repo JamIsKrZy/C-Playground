@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -std=c11 -ICollections
 
 # Directories
 SRC_DIR := Collections
-BUILD_DIR := build
+BUILD_DIR := ./.target/build
 
 # Find all .c files recursively
 SRCS := $(shell find $(SRC_DIR) -type f -name "*.c")
