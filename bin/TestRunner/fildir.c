@@ -14,7 +14,7 @@ void list_files(const char *path, size_t indent) {
     }
 
     while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_name[0] != '.') {
+        if (entry->d_name[0] != '.') { // filter hidden files
 
             // printf("%*s", (int)(indent * 4), "");
             // printf("%s - [Type: %u]\n", entry->d_name, entry->d_type);
@@ -27,7 +27,7 @@ void list_files(const char *path, size_t indent) {
                 snprintf(buffer, sizeof(buffer), "%s/%s", path, entry->d_name);
                 printf("%*s", (int)(indent * 4), "");
                 printf("📂%s - \"%s\"]{\n", entry->d_name, buffer);
-
+                
                 list_files(buffer, indent+1);
 
                 printf("%*s", (int)(indent * 4), "");

@@ -37,30 +37,20 @@ compile_one:
 
 
 
-OS := $(shell uname -s)
-
-# Determine executable extension
-ifeq ($(OS),Windows_NT)
-    EXE_EXT := .exe
-else
-    EXE_EXT :=  # No extension for Unix-based systems (Linux, macOS)
-endif
-
-
-# Location to put executable
-EXE_DIR = ./bin/
-TESTRUNNER = test$(EXE_EXT) 
-
-
-exe:
-	gcc -o $(EXE_DIR)$(TESTRUNNER) ./bin/TestRunner/fildir.c
+# Build bin executables 
+BIN_BUILD_DIR = bin/TestRunner 
+build_bin:
+	$(MAKE) -C $(BIN_BUILD_DIR)
 
 
 
 
-
-
+# Running the Test
+EXE_RUNNER = ./bin/test_exe
+run:
+	$(EXE_RUNNER)
 
 # Clean compiled files
 clean:
 	rm -rf $(BUILD_DIR)
+	$(MAKE) -C $(BIN_BUILD_DIR) clean
