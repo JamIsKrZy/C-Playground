@@ -3,7 +3,7 @@
 
 VECTOR_TEMPLATE_INIT(string)
 
-char* string_new_concat(char* str1, char* str2){
+char* string_new_concat_dir(char* str1, char* str2){
     size_t len1 = strlen(str1);
     size_t len2 = strlen(str2);
     size_t total_len = len1 + len2 + 2;  // +2 for '/' and '\0'

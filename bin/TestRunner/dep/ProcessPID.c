@@ -97,34 +97,36 @@ static void create_process(size_t len, pid_t *pids, Vector_fileinfo *vec){
 
 static void wait_for_PID(size_t len, pid_t *pids, ProcessResult *res){
     int status;
-    pid_t pid;
+    size_t remaining = len;
 
-    for (size_t i = 0; i < len; i++)
-    {
-        pid = waitpid(pids[i], &status, 0);
+    while (remaining > 0) {
+        for (size_t i = 0; i < len; i++) {
+            if (pids[i] == -1) continue; // Skip already handled PIDs
 
-        if (pid == -1) {
-            perror("waitpid failed");
-            continue;
+            pid_t pid = waitpid(pids[i], &status, WNOHANG);  // Non-blocking check
+
+            if (pid == 0) {
+                // Process is still running
+                printf("[ \033[38;5;214mRUNNING...\033[0m ][PID: %d] %s\n", pids[i], vector_string_get(&res->file_names, i));
+                continue;
+
+            } else if (pid > 0) {
+                // Process has terminated
+                if (WIFEXITED(status)) {
+                    printf("[ \033[32mPROGRAM EXITED SUCCESSFULLY\033[0m ][PID: %d] %s\n",
+                           pids[i], vector_string_get(&res->file_names, i));
+                    res->res[i] = true;
+                } else {
+                    printf("[ \033[31mPROGRAM FAILED\033[0m ][PID: %d] %s\n",
+                           pids[i], vector_string_get(&res->file_names, i));
+                    res->res[i] = false;
+                }
+                pids[i] = -1;  // Mark this process as handled
+                remaining--;
+            }
         }
-
-        if (WIFEXITED(status)) {
-            printf("[ \033[32mPROGRAM EXITED SUCCESSFULLY\033[0m ][PID: %d] %s\n", pids[i],vector_string_get(&res->file_names, i));
-            res->res[i] = true;
-
-        } else if (WIFSIGNALED(status)) {
-            printf("[ \033[31mPROGRAM FAILED\033[0m ][PID: %d] %s\n", pids[i],vector_string_get(&res->file_names, i));
-            res->res[i] = false;
-            
-        } else {
-            printf("[ \033[31mPROGRAM FAILED ABNORMALY\033[0m ][PID: %d] %s\n", pids[i],vector_string_get(&res->file_names, i));
-            res->res[i] = false;
-
-        }
-
+        sleep(2);  // Small delay to avoid CPU overuse (50ms)
     }
-    
-
 }
 
 

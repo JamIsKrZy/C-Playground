@@ -9,7 +9,7 @@
 int main(int argc, char const *argv[])
 {
     printf("[ COLLECTING INFORMATION... ]\n");
-    Vector_fileinfo vec = locate_files("./test_bin");
+    Vector_fileinfo vec = locate_files("./.target/test_bin/");
     if(vector_fileinfo_is_empty(&vec)){
         perror("Location is empty!");
         exit(EXIT_FAILURE);
