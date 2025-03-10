@@ -201,6 +201,7 @@ void vector_##type##_display(Vector_##type *vec, void (*print)(const type val)){
 void vector_##type##_free_content(Vector_##type *vec){\
     if(!vec) return;\
     free(vec->alloc);\
+    vec->alloc = NULL;\
 }\
 void vector_##type##_free_self(Vector_##type **vec){\
     if(!vec && !(*vec)) return;\

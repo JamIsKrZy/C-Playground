@@ -22,7 +22,9 @@ int main(int argc, char const *argv[])
     
     display_result_table(&res);
 
-   
+    //Free allocated memory
+    free_process_results(&res);
+    free_vector_fileinfo_fields(&vec);
 
     return 0;
 }
