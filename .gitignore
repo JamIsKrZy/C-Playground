@@ -1,0 +1,7 @@
+/fildir.c
+
+.target
+
+bin/TestRunner/bin/
+bin/test_exe
+color_sample.c
