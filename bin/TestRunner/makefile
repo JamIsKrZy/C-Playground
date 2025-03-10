@@ -39,8 +39,8 @@ test_exe: $(OBJS)
 
 # Clean generated files
 clean:
-	rm -rf bin
-	rm ../test_exe
+	@rm -rf bin
+	@rm -f ../test_exe
 
 print:
 	@echo $(FILES)
