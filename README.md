@@ -84,18 +84,10 @@ make test --only="File1.c, File2.c"
 **Executables stored** 
 - TestRunner - Runs the test binaries
 
-### 📂 build
-Objects are stored in the 
-
-
 ### 📂 Collections
 Data Structures are stored in the directory. Could be either a Data Structure or Algorthm.
 
 Create a folder to create a respective module purpose
-
-
-### 📂 test_bin
-Executables ready to be run by the TestRunner executable from bin 
 
 
 ### 📂 tests
