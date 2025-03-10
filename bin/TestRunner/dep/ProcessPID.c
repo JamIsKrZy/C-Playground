@@ -29,7 +29,8 @@ void set_process_contents(Vector_fileinfo *vec, ProcessResult *res,size_t size){
 
 void free_process_results(ProcessResult *res){
     vector_string_free_content(&res->file_names);
-    free(res);
+    free(res->res);
+    res->res = NULL;
 }
 
 

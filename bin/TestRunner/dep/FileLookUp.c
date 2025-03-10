@@ -117,6 +117,24 @@ bool is_directory_empty(char *dir_path){
     return true; // Directory is empty
 }
 
+
+free_vector_fileinfo_fields(Vector_fileinfo *fi){
+    size_t len = fi->length;
+    FileInfo info;
+    for (size_t i = 0; i < len; i++)
+    {
+        info = vector_fileinfo_get(fi, i);
+        free(info.dir_path);
+        free(info.file_name);
+    }
+
+    free(fi->alloc);
+    fi->alloc = NULL;
+    fi->capacity = 0;
+    fi->capacity = 0;
+}
+
+
 #define self Vector_fileinfo *vec
 
 void filter_files_by_extensions(self, char *ext){

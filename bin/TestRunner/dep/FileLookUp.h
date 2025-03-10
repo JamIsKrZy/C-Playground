@@ -26,6 +26,8 @@ Vector_fileinfo locate_files(char *starting_dir);
 bool is_directory_empty(char *dir);
 
 
+free_vector_fileinfo_fields(Vector_fileinfo *fi);
+
 #define self Vector_fileinfo *vec
 
 void filter_files_by_extensions(self, char *ext);
