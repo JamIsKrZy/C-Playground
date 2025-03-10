@@ -10,48 +10,66 @@ scratch then test with it. But in the process of making this repository,
 this can be used by any purpose for learning
 
 
-The process to execute thee program is to
-1. Build the bin executables
-2. Build the Modules
-3. Build the test (this compiles with the compiled modules)
-4. Run the test
+**Quick Start**
+1. Build bin <br>
+build the necceessary bin for executing the program
+```
+make build_bin
+```
 
-## How to Build
+2. Build the collection and tests
+```
+make 
+```
+
+3. Run the tests
+```
+make tests 
+```
+
+**OPTIONAL**: for quicker command to compile all collections and tests and executes the tests right away
+```
+make run
+```
+
+
+
+
+
+
+## How to Build Collection
 The building process is to compile the collection .c files to object(".o")
 files stored in the "/build" folder.
 
-- **Build Whole Repository**
+**Build Whole**
 ```
-make  
+make compile_one file=(file_name.c)  
 ```
 
-- **Build Specific File**
+<br>
+
+**Build Specific File** [not yet supported]
 ```
 make compile_one file=(file_name.c)  
 ```
 
 
 ## How to Test
-[In the Process]
-
-
-**Pre-Requisite**: Make sure the bin is compiled
-```
-make exe
-```
 
 1. **Build the Test** <br>
 this is to compile inside the Test file to executable.
-Ready for the executable for running test to be used
 ```
-make tests
+make build_test
 ```
 
-
-2. **Run the Test**   <br>
-use the executable file, to run the test
+2. a.) **Run Specific Tests** []  <br>
 ```
-./bin/test
+make test
+```
+
+2. b.) **Run Specific Tests** []  <br>
+```
+make test --only="File1.c, File2.c"
 ```
 
 
