@@ -1,43 +1,48 @@
 #ifndef FILE_LOOK_UP_H
 #define FILE_LOOK_UP_H
 
+#include "VectorSizeT.h"
 #include "VectorString.h"
+#include "Vector_Template.h"
 #include <dirent.h>
+#include <stddef.h>
 
-/**
- * Make sure to deallocate dir_path
- * Do not dealloc dir - its pointing to an program location
- */
-typedef struct FileInfo
-{
-    char *file_name;
+struct FolderContent{
     char *dir_path;
-} FileInfo;
+    Vector_ST vec_index;
+};
 
-#define fileinfo FileInfo
-    VECTOR_TEMPLATE_INIT_PROTOTYPE(fileinfo)
-#undef fileinfo
+#define foldcon struct FolderContent
+VECTOR_TEMPLATE_INIT_PROTOTYPE(foldcon)
+#undef  foldcon
 
-void display_fileinfo(const FileInfo info);
-void display_filename(const FileInfo info);
-
-
-Vector_fileinfo locate_files(char *starting_dir);
-bool is_directory_empty(char *dir);
-
-
-free_vector_fileinfo_fields(Vector_fileinfo *fi);
-
-#define self Vector_fileinfo *vec
-
-void filter_files_by_extensions(self, char *ext);
-void filter_files_by_executables(self);
-void filter_files_by_folders(self);
-
-Vector_string get_file_names(self);
+typedef struct TestFilesData{
+    Vector_string file_names;
+    Vector_string dir_path;
+    Vector_foldcon order;
+} TestFilesData;
 
 
-#undef self
+TestFilesData locate_files(char *starting_dir);
+
+char * get_filename_from_list(TestFilesData *list);
+char * get_dirpath_from_list(TestFilesData *list);
+void free_vector_fileinfo_fields(TestFilesData *fi);
+
+
+
+
+
+// ----------------- Factoring -------------------
+ 
+
+
+
+
+
+
+
+
 
 
 

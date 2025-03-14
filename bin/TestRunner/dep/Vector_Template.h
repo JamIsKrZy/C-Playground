@@ -23,6 +23,7 @@ Vector_##type vector_##type##_clone(Vector_##type *vec);\
 bool vector_##type##_push(Vector_##type *vec, type val);\
 bool vector_##type##_pop(Vector_##type *vec, type *return_type);\
 type vector_##type##_get(Vector_##type *vec, size_t index);\
+type* vector_##type##_get_ref(Vector_##type *vec, size_t index);\
 bool vector_##type##_contains(\
     Vector_##type *vec, \
     type target, \
@@ -191,6 +192,12 @@ type vector_##type##_get(Vector_##type *vec, size_t index){\
 \
     type temp = vec->alloc[index];\
     return temp;\
+}\
+type* vector_##type##_get_ref(Vector_##type *vec, size_t index){\
+    PANIC_##type##_IF_EMPTY(vec, __FILE__, __LINE__);\
+    PANIC_##type##_IF_OUT_OF_BOUNDS(vec, index,__FILE__, __LINE__);\
+\
+    return vec->alloc + index;\
 }\
 \
 void vector_##type##_display(Vector_##type *vec, void (*print)(const type val)){\
