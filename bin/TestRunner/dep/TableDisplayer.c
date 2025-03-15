@@ -54,11 +54,11 @@ void display_header(size_t max_width){
 }
 
 void display_row_content(char* text, bool result, size_t max_width){
-    printf("|      %-*s  |   %-*s |\n", (int)max_width, text, (int)RESULT_WIDTH_W_COLOR, get_result_str(result));
+    printf("|    ↳ %-*s  |   %-*s |\n", (int)max_width, text, (int)RESULT_WIDTH_W_COLOR, get_result_str(result));
 }
 
 void display_folder_title(char* text, size_t max_width){
-    printf("|  %-*s     %-*s  |\n", (int)max_width + 4, text, (int)RESULT_WIDTH, "");
+    printf("| 📂 %-*s   %-*s  |\n", (int)max_width + 4, text, (int)RESULT_WIDTH, "");
 }
 
 
@@ -76,7 +76,7 @@ static int count_passed(ProcessResults *res){
 void display_total(size_t max_width, int passed, int total){
 
     char buffer[32];
-    snprintf(buffer, 32,"%d  / %d", passed, total);
+    snprintf(buffer, 32,"%d / %d", passed, total);
 
     printf("|  %-*s  |  %-*s  |\n", 
             (int)max_width+4, "TOTAL:", 
@@ -94,13 +94,12 @@ size_t longest_string_to_display(TestFilesData *data){
     char *catch;
     while ((catch = next_folder(&iter)))
     {
-        printf("CATCH: %s\n", catch);
+        
         longest = get_longest(longest, strlen(catch));
 
         while ((catch = next_files_by_name(&iter)))
         {
-            printf("CATCH: %s\n", catch);
-
+        
             longest = get_longest(longest, strlen(catch));
         }
         

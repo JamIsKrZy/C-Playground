@@ -110,7 +110,7 @@ TestFilesData* locate_files(char *starting_dir){
         dir = opendir(path);
 
         if(!dir){
-            printf( "[ \033[31mERROR\033[0m ] Directory \"%s\" is not found", starting_dir);
+            printf( "[ \033[31mERROR\033[0m ] Directory \"%s\" is not found", path);
             continue;
         };
 
@@ -123,7 +123,7 @@ TestFilesData* locate_files(char *starting_dir){
     
             if(entry->d_type == 4){
                 printf("[ Collecting %s... ]\n", entry->d_name);
-                char *dir_child = string_new_concat_dir(starting_dir, entry->d_name);
+                char *dir_child = string_new_concat_dir(path, entry->d_name);
                 if(!dir_child) continue;
     
                 vector_string_push(&folders_to_check, dir_child);

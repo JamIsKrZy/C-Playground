@@ -9,30 +9,30 @@ BUILD_DIR := .target/build
 TEST_DIR := Tests
 TEST_BIN_DIR := .target/test_bin
 
-# Find all .c files recursively in Collections (excluding test files)
-SRCS := $(shell find $(SRC_DIR) -type f -name "*.c")
+# Find all .c files recursively in Collections (excluding hidden and test files)
+SRCS := $(shell find $(SRC_DIR) -type f -name "*.c" ! -path '*/.*')
 OBJS := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 
-# Find all test files in Tests/
-TEST_SRCS := $(shell find $(TEST_DIR) -type f -name "*.c" ! -name ".*")
+# Find all test files in Tests/ (excluding hidden files)
+TEST_SRCS := $(shell find $(TEST_DIR) -type f -name "*.c" ! -path '*/.*')
 TEST_BINS := $(patsubst $(TEST_DIR)/%.c, $(TEST_BIN_DIR)/%, $(TEST_SRCS))
 
 # Default target
 all: build_collection $(OBJS) build_test $(TEST_BINS)
 
-# Ensure build directories exist before compilation
+# Ensure build directories exist before compilation (ignore hidden directories)
 build_collection:
 	mkdir -p $(BUILD_DIR)
-	mkdir -p $(shell find $(SRC_DIR) -type d | sed "s|^$(SRC_DIR)|$(BUILD_DIR)|")
+	mkdir -p $(shell find $(SRC_DIR) -type d ! -path '*/.*' | sed "s|^$(SRC_DIR)|$(BUILD_DIR)|")
 
 # Compile each .c file to corresponding .o inside build directory
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | build_collection
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Create test_bin directory and its subdirectories
+# Create test_bin directory and its subdirectories (ignore hidden directories)
 build_test:
 	mkdir -p $(TEST_BIN_DIR)
-	mkdir -p $(shell find $(TEST_DIR) -type d | sed "s|^$(TEST_DIR)|$(TEST_BIN_DIR)|")
+	mkdir -p $(shell find $(TEST_DIR) -type d ! -path '*/.*' | sed "s|^$(TEST_DIR)|$(TEST_BIN_DIR)|")
 
 # Compile each test file separately, linking with object files
 $(TEST_BIN_DIR)/%: $(TEST_DIR)/%.c $(OBJS) | build_test

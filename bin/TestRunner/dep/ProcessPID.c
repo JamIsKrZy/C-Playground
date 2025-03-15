@@ -170,7 +170,7 @@ ProcessResults process_executable(
             } 
         }
 
-        sleep(2);
+        sleep(1);
         
         //get an update from the PID
         for (size_t i = 0; i < PROCESS_HANDLER_LIMIT; i++)
