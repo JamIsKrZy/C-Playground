@@ -10,7 +10,7 @@ typedef struct ProcessResults{
 
 
 ProcessResults process_executable(TestFilesData *list_info);
-
+void free_process_results(ProcessResults *res);
 
 
 

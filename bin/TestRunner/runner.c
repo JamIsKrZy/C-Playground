@@ -21,9 +21,8 @@ int main(int argc, char const *argv[])
     printf("\n\n");
     display_result_table(data, res);
     
-
-    
-
+    free_process_results(&res);
+    free_test_files_data(&data);
     return 0;
 }
 

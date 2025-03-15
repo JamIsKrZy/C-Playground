@@ -144,7 +144,8 @@ TestFilesData* locate_files(char *starting_dir){
             .len = count
         };
         vector_filegroup_push(&data.groups, fg);
-
+        free(path);
+        closedir(dir);
     }
     
     vector_string_free_content(&folders_to_check);
@@ -253,6 +254,34 @@ void show_list(TestFilesData *data){
     
 }
 
+void free_test_files_data(TestFilesData **data){
+
+    size_t len = (*data)->dir_path.length;
+    char *catch;
+    for (size_t i = 0; i < len; i++)
+    {   
+        vector_string_pop(&(*data)->file_names, &catch);
+        free(catch);
+        vector_string_pop(&(*data)->dir_path, &catch);
+        free(catch);
+    }
+
+    len = (*data)->groups.length;
+    struct filegroup group; 
+    for (size_t i = 0; i < len; i++)
+    {
+        vector_filegroup_pop(&(*data)->groups, &group);
+        free(group.group_name);
+    }
+    
+    vector_string_free_content(&(*data)->dir_path);
+    vector_string_free_content(&(*data)->file_names);
+    vector_filegroup_free_content(&(*data)->groups);
+
+    free(*data);
+    *data = NULL;
+    
+}
 
 
 
