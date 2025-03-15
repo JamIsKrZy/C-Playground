@@ -20,7 +20,7 @@ char * get_dirpath_from_list(TestFilesData *list, size_t index);
 
 Vector_string* get_filenames_list(TestFilesData *list);
 
-void free_vector_fileinfo_fields(TestFilesData *fi);
+void free_test_files_data(TestFilesData **data);
 
 
 

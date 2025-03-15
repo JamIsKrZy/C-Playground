@@ -6,13 +6,15 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define VECTOR_TEMPLATE_INIT_PROTOTYPE(type)\
+
+#define VECTOR_TEMPLATE_INIT_TYPE(type)\
 typedef struct Vector_##type {\
     type* alloc;\
     size_t capacity;\
     size_t length;\
 }Vector_##type;\
-\
+
+#define VECTOR_TEMPLATE_INIT_PROTOTYPE(type)\
 Vector_##type*vector_##type##_box();\
 Vector_##type vector_##type##_new();\
 Vector_##type vector_##type##_with_capacity(size_t capacity);\
@@ -23,6 +25,7 @@ Vector_##type vector_##type##_clone(Vector_##type *vec);\
 bool vector_##type##_push(Vector_##type *vec, type val);\
 bool vector_##type##_pop(Vector_##type *vec, type *return_type);\
 type vector_##type##_get(Vector_##type *vec, size_t index);\
+type* vector_##type##_get_ref(Vector_##type *vec, size_t index);\
 bool vector_##type##_contains(\
     Vector_##type *vec, \
     type target, \
@@ -48,7 +51,7 @@ void vector_##type##_free_self(Vector_##type **vec);\
 Vector_##type * vector_##type##_box(){\
     Vector_##type *vec = malloc(sizeof(Vector_##type));\
     if(!vec) return NULL;\
-    vec->alloc = (type *)calloc(10, sizeof(type *));\
+    vec->alloc = (type *)calloc(10, sizeof(type));\
     vec->capacity = 10;\
     vec->length = 0;\
     return vec;\
@@ -56,7 +59,7 @@ Vector_##type * vector_##type##_box(){\
 \
 Vector_##type vector_##type##_new(){\
     Vector_##type vec = {\
-        .alloc = (type *)calloc(10, sizeof(type *)),\
+        .alloc = (type *)calloc(10, sizeof(type )),\
         .capacity = 10,\
         .length = 0,\
     };\
@@ -65,7 +68,7 @@ Vector_##type vector_##type##_new(){\
 \
 Vector_##type vector_##type##_with_capacity(size_t capacity){\
     Vector_##type vec = {\
-        .alloc = (type *)calloc(10, sizeof(type *)),\
+        .alloc = (type *)calloc(10, sizeof(type)),\
         .capacity = capacity,\
         .length = 0,\
     };\
@@ -192,6 +195,12 @@ type vector_##type##_get(Vector_##type *vec, size_t index){\
     type temp = vec->alloc[index];\
     return temp;\
 }\
+type* vector_##type##_get_ref(Vector_##type *vec, size_t index){\
+    PANIC_##type##_IF_EMPTY(vec, __FILE__, __LINE__);\
+    PANIC_##type##_IF_OUT_OF_BOUNDS(vec, index,__FILE__, __LINE__);\
+\
+    return vec->alloc + index;\
+}\
 \
 void vector_##type##_display(Vector_##type *vec, void (*print)(const type val)){\
     printf("[ ");\
@@ -201,6 +210,7 @@ void vector_##type##_display(Vector_##type *vec, void (*print)(const type val)){
 void vector_##type##_free_content(Vector_##type *vec){\
     if(!vec) return;\
     free(vec->alloc);\
+    vec->alloc = NULL;\
 }\
 void vector_##type##_free_self(Vector_##type **vec){\
     if(!vec && !(*vec)) return;\

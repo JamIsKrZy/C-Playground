@@ -210,3 +210,10 @@ void process_executable(
 
 
 #endif
+
+
+
+void free_process_results(ProcessResults *res){
+    free(res->res);
+    res->len = 0;
+}
