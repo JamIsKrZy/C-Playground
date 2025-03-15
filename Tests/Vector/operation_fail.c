@@ -1,5 +1,5 @@
 
-#include "../../Collections/Vector/VectorFloat.h"
+#include "Vector/VectorFloat.h"
 #include "assert.h"
 
 int main(int argc, char const *argv[])
