@@ -1,30 +1,44 @@
 #include <stdio.h>
-#include "dep/TableDisplayer.h"
 #include "dep/FileLookUp.h"
 #include "dep/ProcessPID.h"
-
-
+#include "dep/TableDisplayer.h"
 
 
 int main(int argc, char const *argv[])
 {
     printf("[ COLLECTING INFORMATION... ]\n");
-    Vector_fileinfo vec = locate_files("./.target/test_bin/");
-    if(vector_fileinfo_is_empty(&vec)){
+
+    TestFilesData *data = locate_files("./.target/test_bin/");
+    if(!data){
         perror("Location is empty!");
         exit(EXIT_FAILURE);
     } 
     
- 
-    ProcessResult res = process_executable(&vec);
+    // TestFilesDataIter iter = init_file_data_iter(data);
     
-    printf("\n\n"); 
-    
-    display_result_table(&res);
+    // printf("\n");
 
-    //Free allocated memory
-    free_process_results(&res);
-    free_vector_fileinfo_fields(&vec);
+    // char *catch;
+
+    // while ((catch = next_folder(&iter)) != NULL)
+    // {
+    //     printf("Folder: %s\n", catch);
+
+    //     while ((catch = next_files_by_filedir(&iter)) != NULL)
+    //     {
+    //         printf("\t%s\n", catch);
+    //     }
+        
+    // }
+    
+    printf("\n\n");
+
+    ProcessResults res = process_executable(data);
+
+    display_result_table(data, res);
+    
+
+    
 
     return 0;
 }

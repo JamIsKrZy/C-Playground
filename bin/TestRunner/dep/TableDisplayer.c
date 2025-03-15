@@ -40,6 +40,8 @@ void draw_horizontal_line(size_t len){
 
 
 
+
+
 void display_header(size_t max_width){
     size_t hor_len = HORIZONTAL_LEN(max_width);
     
@@ -47,20 +49,25 @@ void display_header(size_t max_width){
     char *res = "Result";
 
     draw_horizontal_line(hor_len);    
-    printf("|  \033[1m%-*s\033[0m  |  \033[1m%-*s\033[0m  |\n", (int)max_width, title, (int)RESULT_WIDTH, res);
+    printf("|  \033[1m%-*s\033[0m  |  \033[1m%-*s\033[0m  |\n", (int)max_width+4, title, (int)RESULT_WIDTH, res);
     draw_horizontal_line(hor_len);
 }
 
-void display_row(char* text, bool result, size_t max_width){
-    printf("|  %-*s  |  %-*s  |\n", (int)max_width, text, (int)RESULT_WIDTH_W_COLOR, get_result_str(result));
+void display_row_content(char* text, bool result, size_t max_width){
+    printf("|      %-*s  |   %-*s |\n", (int)max_width, text, (int)RESULT_WIDTH_W_COLOR, get_result_str(result));
+}
+
+void display_folder_title(char* text, size_t max_width){
+    printf("|  %-*s     %-*s  |\n", (int)max_width + 4, text, (int)RESULT_WIDTH, "");
 }
 
 
 
-static int count_passed(ProcessResult *res){
+static int count_passed(ProcessResults *res){
     int count = 0;
+    size_t len = res->len;
 
-    for(size_t i=0; i<res->len; i++){
+    for(size_t i=0; i< len ; i++){
         if(res->res[i]) count++;
     }
     return count;
@@ -69,33 +76,69 @@ static int count_passed(ProcessResult *res){
 void display_total(size_t max_width, int passed, int total){
 
     char buffer[32];
-    snprintf(buffer, 32,"%d / %d", passed, total);
+    snprintf(buffer, 32,"%d  / %d", passed, total);
 
     printf("|  %-*s  |  %-*s  |\n", 
-            (int)max_width, "TOTAL:", 
+            (int)max_width+4, "TOTAL:", 
             (int)RESULT_WIDTH, buffer);
 }
 
 
-void display_result_table(ProcessResult* res){
-    if(!res) return;
-    //Get the longest text size among the texts
-    size_t max_width = string_longest_size(&res->file_names, TITLE_WIDTH);
-    //Padding - 2 Left and Right
+inline static size_t get_longest(size_t i, size_t j){
+    return i > j? i : j;
+}
 
-    display_header(max_width);
-    size_t items = res->len;
-
-    for (size_t i = 0; i < items; i++)
+size_t longest_string_to_display(TestFilesData *data){
+    size_t longest = TITLE_WIDTH + INDENT;
+    TestFilesDataIter iter = init_file_data_iter(data);
+    char *catch;
+    while ((catch = next_folder(&iter)))
     {
-        display_row(
-            vector_string_get(&res->file_names, i), 
-            res->res[i], 
-            max_width
-        );
+        printf("CATCH: %s\n", catch);
+        longest = get_longest(longest, strlen(catch));
+
+        while ((catch = next_files_by_name(&iter)))
+        {
+            printf("CATCH: %s\n", catch);
+
+            longest = get_longest(longest, strlen(catch));
+        }
+        
+    }
+    return longest;
+}
+
+
+
+void display_result_table(TestFilesData *data, ProcessResults results){
+    if(!data && !results.res) return; 
+
+    //Get the longest text size among the texts
+    size_t max_width = longest_string_to_display(data);
+    size_t i = 0;
+    TestFilesDataIter iter = init_file_data_iter(data);
+    display_header(max_width);
+
+    char *catch;
+    while ((catch = next_folder(&iter)))
+    {
+     
+        if(next_file_is_empty(&iter)) continue;
+        display_folder_title(catch, max_width);   
         draw_horizontal_line(HORIZONTAL_LEN(max_width));
+        
+
+        while ((catch = next_files_by_name(&iter)))
+        {
+
+            display_row_content(catch, results.res[i], max_width);
+            draw_horizontal_line(HORIZONTAL_LEN(max_width));
+
+            i++;
+        }
+        
     }
 
-    display_total(max_width, count_passed(res), items);
+    display_total(max_width, count_passed(&results), results.len);
     draw_horizontal_line(HORIZONTAL_LEN(max_width));
 }

@@ -3,16 +3,16 @@
 
 #include "FileLookUp.h"
 
-typedef struct ProcessResult{
-    Vector_string file_names;
-    size_t len;
+typedef struct ProcessResults{
     bool *res;
-} ProcessResult;
+    size_t len;
+} ProcessResults;
 
-ProcessResult process_executable(Vector_fileinfo *list_info);
+
+ProcessResults process_executable(TestFilesData *list_info);
 
 
-void free_process_results(ProcessResult*);
+
 
 
 #endif

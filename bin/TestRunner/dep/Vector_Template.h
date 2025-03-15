@@ -6,13 +6,15 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define VECTOR_TEMPLATE_INIT_PROTOTYPE(type)\
+
+#define VECTORR_TEMPLATE_INIT_TYPE(type)\
 typedef struct Vector_##type {\
     type* alloc;\
     size_t capacity;\
     size_t length;\
 }Vector_##type;\
-\
+
+#define VECTOR_TEMPLATE_INIT_PROTOTYPE(type)\
 Vector_##type*vector_##type##_box();\
 Vector_##type vector_##type##_new();\
 Vector_##type vector_##type##_with_capacity(size_t capacity);\
@@ -49,7 +51,7 @@ void vector_##type##_free_self(Vector_##type **vec);\
 Vector_##type * vector_##type##_box(){\
     Vector_##type *vec = malloc(sizeof(Vector_##type));\
     if(!vec) return NULL;\
-    vec->alloc = (type *)calloc(10, sizeof(type *));\
+    vec->alloc = (type *)calloc(10, sizeof(type));\
     vec->capacity = 10;\
     vec->length = 0;\
     return vec;\
@@ -57,7 +59,7 @@ Vector_##type * vector_##type##_box(){\
 \
 Vector_##type vector_##type##_new(){\
     Vector_##type vec = {\
-        .alloc = (type *)calloc(10, sizeof(type *)),\
+        .alloc = (type *)calloc(10, sizeof(type )),\
         .capacity = 10,\
         .length = 0,\
     };\
@@ -66,7 +68,7 @@ Vector_##type vector_##type##_new(){\
 \
 Vector_##type vector_##type##_with_capacity(size_t capacity){\
     Vector_##type vec = {\
-        .alloc = (type *)calloc(10, sizeof(type *)),\
+        .alloc = (type *)calloc(10, sizeof(type)),\
         .capacity = capacity,\
         .length = 0,\
     };\

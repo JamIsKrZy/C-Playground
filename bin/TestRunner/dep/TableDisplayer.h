@@ -12,12 +12,13 @@
 #define RESULT_WIDTH 6
 #define RESULT_WIDTH_W_COLOR 15
 #define TITLE_WIDTH 10
-#define HORIZONTAL_LEN(str_len) BORDER + PADDING + str_len + PADDING + \
-                                BORDER + PADDING + RESULT_WIDTH + PADDING + BORDER
+#define INDENT 4
+#define HORIZONTAL_LEN(str_len) BORDER + PADDING + INDENT +str_len + PADDING + \
+                                BORDER + PADDING + RESULT_WIDTH + PADDING + BORDER 
 
 
 
-void display_result_table(ProcessResult* res);
+void display_result_table(TestFilesData *data, ProcessResults results);
 
 
 
