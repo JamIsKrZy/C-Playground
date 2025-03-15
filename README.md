@@ -1,4 +1,4 @@
-# Collection in C
+# C Playground
 
 
 The purpose of this repository is to able to play and test with C code.
