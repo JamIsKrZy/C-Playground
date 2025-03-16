@@ -47,7 +47,7 @@ build_dirs:
 build_test: $(TEST_BINS)
 
 $(TEST_BIN_DIR)/%: $(TEST_DIR)/%.c $(LIB_PATH) | test_dirs
-	@$(CC) $(CFLAGS) $< -L$(BUILD_DIR) -lcollections -o $@ && echo "✔️  Built test: $@" || (echo "❌ Test build failed: $@" && exit 1)
+	@$(CC) $(CFLAGS) $< -L$(BUILD_DIR) -lcollections -o $@ && echo "✔️  Built test: $@" || (echo "❌ Test build failed: $@" && exit 1) 
 
 # Create test directories
 test_dirs:
@@ -59,7 +59,7 @@ test_dirs:
 # Running the Test
 EXE_RUNNER = ./bin/test_exe
 run: clean clean_bin all build_bin
-	$(EXE_RUNNER)
+	$(EXE_RUNNER) 
 
 test: 
 	$(EXE_RUNNER)
