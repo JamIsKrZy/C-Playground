@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
         sleep(1);
     }
     
-    vector_f32_free_content(&vec);
+    vector_f32_free(&vec);
 
     return 0;
 }

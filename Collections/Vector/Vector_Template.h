@@ -26,6 +26,7 @@ bool vector_##type##_push(Vector_##type *vec, type val);\
 bool vector_##type##_pop(Vector_##type *vec, type *return_type);\
 type vector_##type##_get(Vector_##type *vec, size_t index);\
 type* vector_##type##_get_ref(Vector_##type *vec, size_t index);\
+void vector_##type##_swap(Vector_##type *vec, size_t index1, size_t index2);\
 bool vector_##type##_contains(\
     Vector_##type *vec, \
     type target, \
@@ -36,9 +37,11 @@ long vector_##type##_index_of(\
     type target, \
     bool (*compare_func)(const type, const type)\
 );\
+bool vector_##type##_swap_remove(Vector_##type *vec, size_t index, type *return_value);\
 void vector_##type##_display(Vector_##type *vec, void (*print)(const type val));\
-void vector_##type##_free_content(Vector_##type *vec);\
-void vector_##type##_free_self(Vector_##type **vec);\
+void vector_##type##_free(Vector_##type *vec);\
+void vector_##type##_free_box(Vector_##type **vec);\
+
 
 
 
@@ -201,18 +204,33 @@ type* vector_##type##_get_ref(Vector_##type *vec, size_t index){\
 \
     return vec->alloc + index;\
 }\
+void vector_##type##_swap(Vector_##type *vec, size_t index1, size_t index2){\
+    PANIC_##type##_IF_EMPTY(vec, __FILE__, __LINE__);\
+    type *pos1 = vector_##type##_get_ref(vec, index1);\
+    type *pos2 = vector_##type##_get_ref(vec, index2);\
 \
+    type temp = *pos1;\
+    *pos1 = *pos2;\
+    *pos2 = temp;\
+}\
+bool vector_##type##_swap_remove(Vector_##type *vec, size_t index, type *return_value){\
+    PANIC_##type##_IF_EMPTY(vec, __FILE__, __LINE__);\
+    PANIC_##type##_IF_OUT_OF_BOUNDS(vec, index,__FILE__, __LINE__);\
+\
+    vector_##type##_swap(vec, index, vec->length-1);\
+    return vector_##type##_pop(vec, return_value);\
+}\
 void vector_##type##_display(Vector_##type *vec, void (*print)(const type val)){\
     printf("[ ");\
     for(size_t i=0; i < vec->length; i++) print(vec->alloc[i]);\
     printf("]\n");\
 }\
-void vector_##type##_free_content(Vector_##type *vec){\
+void vector_##type##_free(Vector_##type *vec){\
     if(!vec) return;\
     free(vec->alloc);\
     vec->alloc = NULL;\
 }\
-void vector_##type##_free_self(Vector_##type **vec){\
+void vector_##type##_free_box(Vector_##type **vec){\
     if(!vec && !(*vec)) return;\
     free((*vec)->alloc);\
     free(*vec);\

@@ -24,7 +24,7 @@ int main(int argc, char const *argv[])
     vector_f32_pop(&vec, &catch_return);
     assert(catch_return == (float)7.77);
 
-    vector_f32_free_content(&vec);
+    vector_f32_free(&vec);
 
     return 0;
 }
