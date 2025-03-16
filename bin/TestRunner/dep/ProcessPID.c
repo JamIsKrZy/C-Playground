@@ -40,9 +40,10 @@ static ProcessResults init_process_result(size_t capacity){
 #include <sys/wait.h>
 #include <unistd.h>
 #include <fcntl.h> 
+#include <string.h>
 
 extern char **environ;
-
+extern char *strsignal(int);
 
 struct PIDS_ID{
     pid_t pids[PROCESS_HANDLER_LIMIT];
@@ -100,15 +101,37 @@ static struct ReturnSignal wait_for_PID_result(char *file_name, pid_t *pid){
 
     } else if (pid_r > 0) {
         // Process has terminated
-        int exit_code = WEXITSTATUS(status);
-        if (exit_code == 0) {
-            printf("[ \033[32mPROGRAM EXITED SUCCESSFULLY\033[0m ][PID: %d] %s\n",
+        if (WIFEXITED(status)) {
+
+            int exit_code = WEXITSTATUS(status);
+            if (exit_code == 0) {
+                printf("[ \033[32mPROGRAM EXITED SUCCESSFULLY\033[0m ][PID: %d] %s\n",
                     *pid, file_name);
-            ret.return_value = true;
-        } else {
-            printf("[ \033[31mPROGRAM FAILED: EXIT CODE %d\033[0m ][PID: %d] %s\n",
+                ret.return_value = true;
+            } else {
+                printf("[ \033[31mPROGRAM FAILED: EXIT CODE %d\033[0m ][PID: %d] %s\n",
                     exit_code, *pid, file_name);
+                ret.return_value = false;
+            }
+
+        } else if (WIFSIGNALED(status)) {
+            int sig = WTERMSIG(status);
+            printf("[ \033[31mPROGRAM CRASHED: SIGNAL %d (%s)\033[0m ][PID: %d] %s\n",
+                sig, strsignal(sig), *pid, file_name);
+
             ret.return_value = false;
+
+        } else if (WIFSTOPPED(status)) {
+            int sig = WSTOPSIG(status);
+            printf("[ \033[33mPROGRAM STOPPED: SIGNAL %d (%s)\033[0m ][PID: %d] %s\n",
+                sig, strsignal(sig), *pid, file_name);
+            ret.return_value = false;
+
+        } else {
+            printf("[ \033[31mPROGRAM TERMINATED FOR UNKNOWN REASON\033[0m ][PID: %d] %s\n",
+                *pid, file_name);
+            ret.return_value = false;
+
         }
         *pid = -1;
         ret.process_finished = true;
