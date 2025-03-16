@@ -100,13 +100,14 @@ static struct ReturnSignal wait_for_PID_result(char *file_name, pid_t *pid){
 
     } else if (pid_r > 0) {
         // Process has terminated
-        if (WIFEXITED(status)) {
+        int exit_code = WEXITSTATUS(status);
+        if (exit_code == 0) {
             printf("[ \033[32mPROGRAM EXITED SUCCESSFULLY\033[0m ][PID: %d] %s\n",
                     *pid, file_name);
             ret.return_value = true;
         } else {
-            printf("[ \033[31mPROGRAM FAILED\033[0m ][PID: %d] %s\n",
-                    *pid, file_name);
+            printf("[ \033[31mPROGRAM FAILED: EXIT CODE %d\033[0m ][PID: %d] %s\n",
+                    exit_code, *pid, file_name);
             ret.return_value = false;
         }
         *pid = -1;

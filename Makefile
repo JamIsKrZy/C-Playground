@@ -1,7 +1,7 @@
 
 # Compiler
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11 -I$(SRC_DIR) -ITest
+CFLAGS = -Wall -Wextra -std=c11 -I$(SRC_DIR) -ITest -g
 AR = ar
 ARFLAGS = rcs
 

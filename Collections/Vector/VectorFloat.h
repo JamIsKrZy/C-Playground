@@ -8,4 +8,8 @@ VECTOR_TEMPLATE_INIT_TYPE(f32);
 VECTOR_TEMPLATE_INIT_PROTOTYPE(f32);
 #undef f32
 
+
+
+void float_display(const float val);
+
 #endif
