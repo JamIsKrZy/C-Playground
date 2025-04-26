@@ -16,11 +16,11 @@ LIB_NAME := libcollections.a
 LIB_PATH := $(BUILD_DIR)/$(LIB_NAME)
 
 # Source Files
-SRCS := $(shell find $(SRC_DIR) -type f -name "*.c" ! -path '*/.*')
+SRCS := $(shell find $(SRC_DIR) -type f -name "*.c" ! -path '*/_*')
 OBJS := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 
 # Test Files
-TEST_SRCS := $(shell find $(TEST_DIR) -type f -name "*.c" ! -path '*/.*')
+TEST_SRCS := $(shell find $(TEST_DIR) -type f -name "*.c" ! -path '*/_*')
 TEST_BINS := $(patsubst $(TEST_DIR)/%.c, $(TEST_BIN_DIR)/%, $(TEST_SRCS))
 
 # Default target
@@ -41,7 +41,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | build_dirs
 # Create build directories
 build_dirs:
 	@mkdir -p $(BUILD_DIR)
-	@mkdir -p $(shell find $(SRC_DIR) -type d ! -path '*/.*' | sed "s|^$(SRC_DIR)|$(BUILD_DIR)|")
+	@mkdir -p $(shell find $(SRC_DIR) -type d ! -path '*/_*' | sed "s|^$(SRC_DIR)|$(BUILD_DIR)|")
 
 # Compile tests and link with static library
 build_test: $(TEST_BINS)
@@ -52,7 +52,7 @@ $(TEST_BIN_DIR)/%: $(TEST_DIR)/%.c $(LIB_PATH) | test_dirs
 # Create test directories
 test_dirs:
 	@mkdir -p $(TEST_BIN_DIR)
-	@mkdir -p $(shell find $(TEST_DIR) -type d ! -path '*/.*' | sed "s|^$(TEST_DIR)|$(TEST_BIN_DIR)|")
+	@mkdir -p $(shell find $(TEST_DIR) -type d ! -path '*/_*' | sed "s|^$(TEST_DIR)|$(TEST_BIN_DIR)|")
 
 
 
