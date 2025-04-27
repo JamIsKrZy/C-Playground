@@ -2,21 +2,21 @@
 #include "../testlib/essential.h"
 
 #define TEST_CASES\
-    TEST(test_1, DEFAULT_SSIZE)\
-    TEST(test_2, DEFAULT_SSIZE)\
-    TEST(test_3, DEFAULT_SSIZE)
+    TEST_CASE(test_1, DEFAULT_SSIZE)\
+    TEST_CASE(test_2, DEFAULT_SSIZE)\
+    TEST_CASE(test_3, DEFAULT_SSIZE)
 
 #include "runtime.h"
 
 
-TEST_CASE(test_1){
+TEST(test_1){
 
     assert(4==4);
 
     RETURN_SUCCESS;
 }
 
-TEST_CASE(test_2){
+TEST(test_2){
 
     int left = 5;
     int right = 7;
@@ -26,7 +26,7 @@ TEST_CASE(test_2){
     RETURN_SUCCESS;
 }
 
-TEST_CASE(test_3){
+TEST(test_3){
 
     assert(4==3);
 

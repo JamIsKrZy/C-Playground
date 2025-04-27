@@ -18,6 +18,6 @@
 } while (0)
 
 
-#define TEST_CASE(title) void* title(void*)
+#define TEST(title) void* title(void*)
 
 #endif

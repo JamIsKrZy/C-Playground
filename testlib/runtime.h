@@ -14,9 +14,9 @@
 
 
 
-#define TEST(func, _ssize) void* func(void*);
+#define TEST_CASE(func, _ssize) void* func(void*);
 TEST_CASES
-#undef TEST
+#undef TEST_CASE
 
 struct test_case{
     pthread_t tr;
@@ -32,24 +32,24 @@ struct contents {
 
 struct contents init_thread_content(){
     void* (*func_ptrs[])(void*) = {
-        #define TEST(func, ssize) func, 
+        #define TEST_CASE(func, ssize) func, 
         TEST_CASES
-        #undef TEST
+        #undef TEST_CASE
     };
 
     // store all function namee as arr of strings
     char *function_names[] = {
-        #define TEST(func, _ssize) #func ,
+        #define TEST_CASE(func, _ssize) #func ,
         TEST_CASES
-        #undef TEST
+        #undef TEST_CASE
     };
     size_t len = sizeof(function_names)/sizeof(function_names[0]);
 
     // store in arr all stack size
     size_t ssizes[] = {
-        #define TEST(_func, ssize) ssize ,
+        #define TEST_CASE(_func, ssize) ssize ,
         TEST_CASES
-        #undef TEST
+        #undef TEST_CASE
     };
 
     struct test_case *test_list = malloc(sizeof(struct test_case) * len);
@@ -88,6 +88,10 @@ int main(){
         pthread_attr_t attr;
         pthread_attr_init(&attr);char **results = calloc(len, sizeof(char*));
         for (size_t i = 0; i < len; i++){
+            if(thread_list[i].func_ptr == NULL){
+                continue;
+            }
+            
             pthread_attr_setstacksize(&attr, thread_list[i].ssize);
             
             pthread_create(
@@ -104,8 +108,8 @@ int main(){
     size_t waiting = len;
     char *catch;
     while (waiting){
+        usleep(2 * 100);
         // puts("Waiting for test case...");
-        usleep(2 * 10000);
         for (size_t i = 0; i < len; i++){
             int res = pthread_tryjoin_np(
                 thread_list[i].tr,
@@ -131,8 +135,9 @@ int main(){
                 waiting--;
                 break;
             } else if (res == EBUSY) {
+
                 // printf("Thread still working...\n");
-                sleep(1); // check again after some time
+                // check again after some time
             } else {
                 perror("pthread_tryjoin_np error");
                 break;
@@ -155,9 +160,8 @@ int main(){
 
 
 #undef TEST_CASES
-
-
-// #error "Undefined Test cases"
+#else
+#error "Undefined Test cases"
 
 #endif
 
