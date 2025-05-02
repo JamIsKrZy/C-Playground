@@ -1,0 +1,1 @@
+/usr/bin/gcc -g CMakeFiles/Tests_dummy.dir/Tests/dummy.c.o -o /home/jamis/Documents/C-Playground/bin/Tests_dummy 

@@ -1,0 +1,1 @@
+/usr/bin/gcc -g CMakeFiles/Vector_nani.dir/Tests/Vector/nani.c.o -o /home/jamis/Documents/C-Playground/bin/Vector_nani  libCollections.a 

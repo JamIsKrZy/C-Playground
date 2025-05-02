@@ -1,0 +1,2 @@
+/usr/bin/ar qc libCollections.a CMakeFiles/Collections.dir/Collections/Sring/string.c.o
+/usr/bin/ranlib libCollections.a

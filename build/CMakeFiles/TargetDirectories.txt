@@ -1,0 +1,4 @@
+/home/jamis/Documents/C-Playground/build/CMakeFiles/Collections.dir
+/home/jamis/Documents/C-Playground/build/CMakeFiles/Vector_nani.dir
+/home/jamis/Documents/C-Playground/build/CMakeFiles/edit_cache.dir
+/home/jamis/Documents/C-Playground/build/CMakeFiles/rebuild_cache.dir

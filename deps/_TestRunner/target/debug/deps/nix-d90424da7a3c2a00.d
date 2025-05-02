@@ -1,0 +1,13 @@
+/home/jamis/Documents/C-Playground/deps/_TestRunner/target/debug/deps/libnix-d90424da7a3c2a00.rmeta: /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/lib.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/macros.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/errno.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/fcntl.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/sys/mod.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/sys/signal.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/sys/sysinfo.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/sys/time.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/unistd.rs
+
+/home/jamis/Documents/C-Playground/deps/_TestRunner/target/debug/deps/nix-d90424da7a3c2a00.d: /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/lib.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/macros.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/errno.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/fcntl.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/sys/mod.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/sys/signal.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/sys/sysinfo.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/sys/time.rs /home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/unistd.rs
+
+/home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/lib.rs:
+/home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/macros.rs:
+/home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/errno.rs:
+/home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/fcntl.rs:
+/home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/sys/mod.rs:
+/home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/sys/signal.rs:
+/home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/sys/sysinfo.rs:
+/home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/sys/time.rs:
+/home/jamis/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.30.0/src/unistd.rs:

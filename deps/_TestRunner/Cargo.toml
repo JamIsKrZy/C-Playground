@@ -1,0 +1,9 @@
+[package]
+name = "_TestRunner"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+nix = "0.30.0"
+termion = "4.0.5"
+walkdir = "2.5.0"

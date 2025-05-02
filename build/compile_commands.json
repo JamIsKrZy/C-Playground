@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/jamis/Documents/C-Playground/build",
+  "command": "/usr/bin/gcc  -I/home/jamis/Documents/C-Playground/Collections -I/home/jamis/Documents/C-Playground/deps/testlib -g -o CMakeFiles/Collections.dir/Collections/Sring/string.c.o -c /home/jamis/Documents/C-Playground/Collections/Sring/string.c",
+  "file": "/home/jamis/Documents/C-Playground/Collections/Sring/string.c",
+  "output": "CMakeFiles/Collections.dir/Collections/Sring/string.c.o"
+},
+{
+  "directory": "/home/jamis/Documents/C-Playground/build",
+  "command": "/usr/bin/gcc  -I/home/jamis/Documents/C-Playground/Collections -I/home/jamis/Documents/C-Playground/deps/testlib -g -std=gnu17 -D_GNU_SOURCE -lpthread -o CMakeFiles/Vector_nani.dir/Tests/Vector/nani.c.o -c /home/jamis/Documents/C-Playground/Tests/Vector/nani.c",
+  "file": "/home/jamis/Documents/C-Playground/Tests/Vector/nani.c",
+  "output": "CMakeFiles/Vector_nani.dir/Tests/Vector/nani.c.o"
+}
+]
